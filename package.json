@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "node build/build.js",
+    "buildc": "rollup -c",
     "test": "jest"
   },
   "author": "",
