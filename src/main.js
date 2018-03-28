@@ -1,25 +1,14 @@
 
 
-let Loliner = {
+import Type from './type.js';
 
-    isObject(target) {
-        return Object.prototype.toString.call(target) === '[object Object]';
-    },
-
-    isArray(target) {
-        return Object.prototype.toString.call(target) === '[object Array]';
-    },
-
-    sameType(origin, target) {
-        return Object.prototype.toString.call(origin) === Object.prototype.toString.call(target);
-    },
-
+const Loliner = {
     compareCore(origin, target) {
-        if (!Loliner.sameType(origin, target)) {
+        if (!Type.sameType(origin, target)) {
             return false;
-        } else if (Loliner.isObject(origin)) {
+        } else if (Type.isObject(origin)) {
             return Loliner.deepCompareObject(origin, target);
-        } else if (Loliner.isArray(origin)) {
+        } else if (Type.isArray(origin)) {
             return Loliner.deepCompareArray(origin, target);
         } else {
             return origin === target;
@@ -72,7 +61,7 @@ let Loliner = {
         return true;
     },
 
-    formatDate: (date, fmt) => {
+    formatDate (date, fmt) {
         let o = {
             "M+": date.getMonth() + 1,               //月份  
             "d+": date.getDate(),                    //日  
@@ -91,4 +80,4 @@ let Loliner = {
     },
 };
 
-module.exports = Loliner;
+export default Loliner;
