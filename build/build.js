@@ -7,10 +7,10 @@ if (!fs.existsSync('dist')) {
 }
 
 const config = {
-    input: path.resolve(__dirname, '../src/main.js'),
+    input: path.resolve(__dirname, '../src/Loliner.js'),
     output: {
         file: path.resolve(__dirname, '../dist/L.js'),
-        format: 'cjs',
+        format: 'iife',
         name: 'L',
     },
 };

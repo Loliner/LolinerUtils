@@ -1,15 +1,14 @@
 
+import Type from './Type.js';
 
-import Type from './type.js';
-
-const Loliner = {
+const Compare =  {
     compareCore(origin, target) {
         if (!Type.sameType(origin, target)) {
             return false;
         } else if (Type.isObject(origin)) {
-            return Loliner.deepCompareObject(origin, target);
+            return this.deepCompareObject(origin, target);
         } else if (Type.isArray(origin)) {
-            return Loliner.deepCompareArray(origin, target);
+            return this.deepCompareArray(origin, target);
         } else {
             return origin === target;
         }
@@ -27,7 +26,7 @@ const Loliner = {
             let originItem = origin[i];
             let targetItem = target[i];
 
-            if (!Loliner.compareCore(originItem, targetItem)) {
+            if (!this.compareCore(originItem, targetItem)) {
                 return false;
             };
         }
@@ -39,14 +38,22 @@ const Loliner = {
         if (origin && !target || !origin && target) {
             return false;
         }
+
+        let originKeys = Object.keys(origin);
+        let targetKeys = Object.keys(target);
+        if (!this.deepCompareArray(originKeys, targetKeys)) {
+            return false;
+        }
+
         for (let key of Object.keys(origin)) {
             let originItem = origin[key];
             let targetItem = target[key];
 
-            if (!Loliner.compareCore(originItem, targetItem)) {
+            if (!this.compareCore(originItem, targetItem)) {
                 return false;
             }
         }
+
         return true;
     },
 
@@ -55,29 +62,11 @@ const Loliner = {
         if (origin && !target || !origin && target) {
             return false;
         }
-        if (!Loliner.compareCore(origin, target)) {
+        if (!this.compareCore(origin, target)) {
             return false;
         }
         return true;
     },
+}
 
-    formatDate (date, fmt) {
-        let o = {
-            "M+": date.getMonth() + 1,               //月份  
-            "d+": date.getDate(),                    //日  
-            "h+": date.getHours(),                   //小时  
-            "m+": date.getMinutes(),                 //分  
-            "s+": date.getSeconds(),                 //秒  
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度  
-            "S": date.getMilliseconds()              //毫秒  
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (let k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    },
-};
-
-export default Loliner;
+export default Compare;

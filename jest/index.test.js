@@ -1,5 +1,5 @@
 
-const L = require('../src/index.js');
+const L = require('../dist/L.cjs.js');
 
 const num1 = 1;
 const num2 = 1;
@@ -15,7 +15,7 @@ const arr3 = [1, 2, 3, 4];
 
 const obj1 = { name: 'Loliner' };
 const obj2 = { name: 'Loliner' };
-const obj3 = { name: 'Loliner', name: 20 };
+const obj3 = { name: 'Loliner', age: 20 };
 
 const complexArr1 = [
     { name: 'Loliner', age: 20, skill: ['javascript', 'python', 'java'] },

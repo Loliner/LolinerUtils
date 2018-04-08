@@ -1,10 +1,7 @@
 
 
-const Happy = 'hahah';
-
 const Type = {
     isObject(target) {
-        console.log(`happy ${Happy}`);
         return Object.prototype.toString.call(target) === '[object Object]';
     },
 
