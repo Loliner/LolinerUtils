@@ -53,14 +53,37 @@ test('flattenObject', () => {
     expect(L.flattenObject(a, Infinity)).toEqual(output3);
 });
 
-test('union', () => {
+test('union/intersection/difference', () => {
     const input1 = [1, 2];
     const input2 = [2, 3];
     const output1 = [1, 2, 3];
     const output2 = [2];
-    const output3 = [1, 3];
+    const output3 = [1];
 
     expect(L.union(input1, input2)).toEqual(output1);
     expect(L.intersection(input1, input2)).toEqual(output2);
     expect(L.difference(input1, input2)).toEqual(output3);
+});
+
+test('union/intersection/difference with comparator', () => {
+    const input1 = [{ x: 1 }, { x: 2 }];
+    const input2 = [{ x: 2 }, { x: 3 }];
+    const output1 = [{ x: 1 }, { x: 2 }, { x: 3 }];
+    const output2 = [{ x: 2 }];
+    const output3 = [{ x: 1 }];
+
+    const compare = function (item, result) {
+        let flag = false
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].x == item.x) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    expect(L.union(input1, input2, compare)).toEqual(output1);
+    expect(L.intersection(input1, input2, compare)).toEqual(output2);
+    expect(L.difference(input1, input2, compare)).toEqual(output3);
 });

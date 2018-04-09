@@ -9,6 +9,10 @@ const Type = {
         return Object.prototype.toString.call(target) === '[object Array]';
     },
 
+    isFunction(target) {
+        return Object.prototype.toString.call(target) === '[object Function]';
+    },
+
     sameType(origin, target) {
         return Object.prototype.toString.call(origin) === Object.prototype.toString.call(target);
     },

@@ -6,9 +6,9 @@ const Compare =  {
         if (!Type.sameType(origin, target)) {
             return false;
         } else if (Type.isObject(origin)) {
-            return this.deepCompareObject(origin, target);
+            return Compare.deepCompareObject(origin, target);
         } else if (Type.isArray(origin)) {
-            return this.deepCompareArray(origin, target);
+            return Compare.deepCompareArray(origin, target);
         } else {
             return origin === target;
         }
@@ -26,7 +26,7 @@ const Compare =  {
             let originItem = origin[i];
             let targetItem = target[i];
 
-            if (!this.compareCore(originItem, targetItem)) {
+            if (!Compare.compareCore(originItem, targetItem)) {
                 return false;
             };
         }
@@ -41,7 +41,7 @@ const Compare =  {
 
         let originKeys = Object.keys(origin);
         let targetKeys = Object.keys(target);
-        if (!this.deepCompareArray(originKeys, targetKeys)) {
+        if (!Compare.deepCompareArray(originKeys, targetKeys)) {
             return false;
         }
 
@@ -49,7 +49,7 @@ const Compare =  {
             let originItem = origin[key];
             let targetItem = target[key];
 
-            if (!this.compareCore(originItem, targetItem)) {
+            if (!Compare.compareCore(originItem, targetItem)) {
                 return false;
             }
         }
@@ -62,7 +62,7 @@ const Compare =  {
         if (origin && !target || !origin && target) {
             return false;
         }
-        if (!this.compareCore(origin, target)) {
+        if (!Compare.compareCore(origin, target)) {
             return false;
         }
         return true;

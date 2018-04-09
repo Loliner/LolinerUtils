@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node build/build.js",
     "buildc": "rollup -c",
-    "buildcjs": "rollup -c rollup.config.js src/Loliner.js -o dist/L.cjs.js -f cjs",
+    "buildcjs": "rollup -c rollup.config.js src/Loliner.js -o dist/L.cjs.js -f cjs --watch",
     "test": "jest"
   },
   "author": "",

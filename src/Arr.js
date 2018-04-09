@@ -1,8 +1,13 @@
 
 
 import Type from './Type.js';
+import Helper from './Helper.js';
 
 const Arr = {
+
+    last(arr) {
+        return arr[arr.length - 1];
+    },
 
     // 数组分组
     chunk(arr, size) {
@@ -32,9 +37,9 @@ const Arr = {
 
     flatten(obj, depth) {
         if (Type.isObject(obj)) {
-            return this.flattenObject(obj, depth);
+            return Arr.flattenObject(obj, depth);
         } else if (Type.isArray(obj)) {
-            return this.flattenArray(obj, depth);
+            return Arr.flattenArray(obj, depth);
         }
     },
 
@@ -43,7 +48,7 @@ const Arr = {
         for (let i = 0; i < arr.length; i++) {
             let item = arr[i];
             if (Type.isArray(item) && currDepth < depth) {
-                this.flattenArray(item, depth, currDepth + 1, result);
+                Arr.flattenArray(item, depth, currDepth + 1, result);
             } else {
                 result.push(item);
             }
@@ -63,7 +68,7 @@ const Arr = {
         Object.keys(obj).map((key) => {
             let sub = obj[key];
             if (Type.isObject(sub) && currDepth < depth) {
-                this.flattenObject(sub, depth, currDepth + 1, result, securityArr);
+                Arr.flattenObject(sub, depth, currDepth + 1, result, securityArr);
             } else {
                 result[key] = sub;
             }
@@ -73,13 +78,16 @@ const Arr = {
     },
 
     // 并集
-    union(...arrs) {
+    union(...originParams) {
         let result = [];
+        let { params, comparator } = Helper._getComparator(originParams, (item, arr) => {
+            return arr.includes(item);
+        });
 
-        for (let i = 0; i < arrs.length; i++) {
-            let arr = arrs[i];
+        for (let i = 0; i < params.length; i++) {
+            let arr = params[i];
             for (let j = 0; j < arr.length; j++) {
-                if (!result.includes(arr[j])) {
+                if (!comparator(arr[j], result)) {
                     result.push(arr[j]);
                 }
             }
@@ -89,22 +97,32 @@ const Arr = {
     },
 
     // 交集
-    intersection(...arrs) {
-        let result = [...arrs[0]];
+    intersection(...originParams) {
+        let result = [...originParams[0]];
+        let { params, comparator } = Helper._getComparator(originParams, (item, arr) => {
+            return arr.includes(item);
+        });
 
-        for (let i = 1; i < arrs.length; i++) {
-            result = result.filter(item => arrs[i].includes(item));
+        for (let i = 1; i < params.length; i++) {
+            result = result.filter(item => {
+                return comparator(item, params[i]);
+            });
         }
 
         return result;
     },
 
     // 差集( a-b-c... )
-    difference(...arrs) {
-        let result = [...arrs[0]];
-        
-        for (let i = 1; i < arrs.length; i++) {
-            result = result.filter(item => !arrs[i].includes(item));
+    difference(...originParams) {
+        let result = [...originParams[0]];
+        let { params, comparator } = Helper._getComparator(originParams, (item, arr) => {
+            return arr.includes(item);
+        });
+
+        for (let i = 1; i < params.length; i++) {
+            result = result.filter(item => {
+                return !comparator(item, params[i]);
+            });
         }
 
         return result;
