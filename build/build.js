@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const rollup = require('rollup')
+const resolve = require('rollup-plugin-node-resolve')
+const babel = require('rollup-plugin-babel')
 
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist')
@@ -13,6 +15,12 @@ const config = {
         format: 'iife',
         name: 'L',
     },
+    plugins: [
+        resolve(),
+        babel({
+            exclude: 'node_modules/**' // 只编译我们的源代码
+        })
+    ]
 };
 
 rollup.rollup(config).then(bundle => {

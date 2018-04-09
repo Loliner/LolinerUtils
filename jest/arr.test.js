@@ -52,3 +52,15 @@ test('flattenObject', () => {
 
     expect(L.flattenObject(a, Infinity)).toEqual(output3);
 });
+
+test('union', () => {
+    const input1 = [1, 2];
+    const input2 = [2, 3];
+    const output1 = [1, 2, 3];
+    const output2 = [2];
+    const output3 = [1, 3];
+
+    expect(L.union(input1, input2)).toEqual(output1);
+    expect(L.intersection(input1, input2)).toEqual(output2);
+    expect(L.difference(input1, input2)).toEqual(output3);
+});

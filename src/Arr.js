@@ -68,6 +68,45 @@ const Arr = {
                 result[key] = sub;
             }
         });
+
+        return result;
+    },
+
+    // 并集
+    union(...arrs) {
+        let result = [];
+
+        for (let i = 0; i < arrs.length; i++) {
+            let arr = arrs[i];
+            for (let j = 0; j < arr.length; j++) {
+                if (!result.includes(arr[j])) {
+                    result.push(arr[j]);
+                }
+            }
+        }
+
+        return result;
+    },
+
+    // 交集
+    intersection(...arrs) {
+        let result = [...arrs[0]];
+
+        for (let i = 1; i < arrs.length; i++) {
+            result = result.filter(item => arrs[i].includes(item));
+        }
+
+        return result;
+    },
+
+    // 差集( a-b-c... )
+    difference(...arrs) {
+        let result = [...arrs[0]];
+        
+        for (let i = 1; i < arrs.length; i++) {
+            result = result.filter(item => !arrs[i].includes(item));
+        }
+
         return result;
     }
 }
