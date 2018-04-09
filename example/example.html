@@ -12,11 +12,12 @@
     <script src="../dist/L.js"></script>
     <script>
 
-        const input1 = [1, 2];
-        const input2 = [2, 3];
-        const output = [1, 2, 3];
+        const input1 = [1, 2, 3, 4];
 
-        console.log(L.intersection(input1, input2));
+        debugger;
+        console.log(L.count(input1, (item) => {
+            return item > 2;
+        }));
 
     </script>
 </body>

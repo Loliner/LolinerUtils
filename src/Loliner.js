@@ -2,6 +2,7 @@
 
 import Arr from './Arr.js';
 import Compare from './Compare.js';
+import Collection from './Collection.js';
 
 const Loliner = {
     mix(source) {
@@ -17,5 +18,6 @@ const Loliner = {
 
 Loliner.mix(Arr);
 Loliner.mix(Compare);
+Loliner.mix(Collection);
 
 export default Loliner;
