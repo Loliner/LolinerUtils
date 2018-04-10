@@ -10,14 +10,24 @@
 
 <body>
     <script src="../dist/L.js"></script>
+    <script src="/reponsitory/lodash/dist/lodash.js"></script>
     <script>
 
-        const input1 = [1, 2, 3, 4];
-
+        var users = [
+            {
+                'user': 'barney', 'age': 36, 'active': false, children: {
+                    name: 'Jack'
+                }
+            },
+            { 'user': 'fred', 'age': 40, 'active': false }
+        ];
         debugger;
-        console.log(L.count(input1, (item) => {
-            return item > 2;
-        }));
+        // The `_.matches` iteratee shorthand.
+        _.every(users, {
+            'user': 'barney', 'active': false, children: {
+                name: 'Jack'
+            }
+        });
 
     </script>
 </body>
