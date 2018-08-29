@@ -31,4 +31,18 @@ test('every', () => {
     ];
     const matcher = { 'user': 'barney', 'active': false };
     expect(L.every(users, matcher)).toEqual(false);
-})
+});
+
+test('copy', () => {
+    let input = {name: 'Loliner', age: 25};
+    let output = {name: 'Loliner', age: 25};
+    expect(L.copy(input)).toEqual(output);
+    input.name = 'Jack';
+    expect(L.deepCompare(input, output)).toBe(false);
+
+    let input1 = {name: 'Loliner', age: 25, city: ['Beijing', 'Shanghai']};
+    let output1 = {name: 'Loliner', age: 25, city: ['Beijing', 'Shanghai']};
+    expect(L.copy(input1)).toEqual(output1);
+    input1['city'].push('Guangzhou');
+    expect(L.deepCompare(input1, output1)).toBe(false);
+});

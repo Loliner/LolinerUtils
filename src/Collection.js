@@ -61,6 +61,53 @@ const Collection = {
             }
             return true
         }
+    },
+
+    copy(source, level) {
+
+        let dest;
+
+        if (Type.isObject(source)) {
+            dest = Collection.copyObject(source, level);
+        } else if (Type.isArray(source)) {
+            dest = Collection.copyArray(source, level);
+        }
+
+        return dest;
+    },
+
+    copyObject(source, level) {
+
+        let dest = new Object();
+
+        for (let key in source) {
+            if (Type.isObject(source[key])) {
+                dest[key] = Collection.copyObject(source[key]);
+            } else if (Type.isArray(source[key])) {
+                dest[key] = Collection.copyArray(source[key]);
+            } else {
+                dest[key] = source[key];
+            }
+        }
+
+        return dest;
+    },
+
+    copyArray(source, level) {
+
+        let dest = new Array();
+
+        for (let i = 0; i < source.length; i++) {
+            if (Type.isObject(source[i])) {
+                dest[i] = Collection.copyObject(source[i]);
+            } else if (Type.isArray(source[i])) {
+                dest[i] = Collection.copyArray(source[i]);
+            } else {
+                dest[i] = source[i];
+            }
+        }
+
+        return dest
     }
 };
 
